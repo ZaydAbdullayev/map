@@ -35,7 +35,6 @@ function App() {
   const [filterType, setFilterType] = useState("polygon");
   const [center, setCenter] = useState(null);
   const [radius, setRadius] = useState(0);
-  const [zoomLevel, setZoomLevel] = useState(14);
   const navigate = useNavigate();
   const mapRef = useRef();
 
@@ -159,19 +158,20 @@ function App() {
         if (polygon?.type === "circle") {
           circle.push(polygon);
         } else {
-          points.push(polygon?.positions);
+          points.push(polygon);
         }
       });
     }
     setOpenedPolygons(points);
     setOpenedCircle(circle);
   };
+
   return (
     loading === false && (
       <>
         <MapContainer
           center={userLocation}
-          zoom={filterType === "polygon" ? 14 : zoomLevel}
+          zoom={14}
           minZoom={3}
           style={{ height: "100vh", width: "100%" }}
           doubleClickZoom={false}
@@ -186,7 +186,6 @@ function App() {
           >
             Points
           </Button>
-          <small className="zoom-value">{zoomLevel}</small>
           <FilterResult
             data={result}
             open={openFilter}
@@ -199,7 +198,6 @@ function App() {
               value={radius}
               setValue={setRadius}
               main={true}
-              zoomLevel={zoomLevel}
               center={center}
             />
           )}
@@ -227,14 +225,13 @@ function App() {
                 setCenter={setCenter}
                 radius={radius}
                 setRadius={setRadius}
-                setZoomLevel={setZoomLevel}
               />
             ))}
           {openedPolygon?.map((polygon, polygonIndex) => (
             <Polyline
               key={polygonIndex}
-              positions={polygon || []}
-              color={polygons?.[polygonIndex]?.color}
+              positions={polygon?.positions || []}
+              color={polygon?.color}
             />
           ))}
 
@@ -248,10 +245,10 @@ function App() {
           ))}
 
           {openedPolygon?.map((item, polygonIndex) => {
-            return item?.map((position, index) => {
+            return item?.positions?.map((position, index) => {
               const m_icon = L.divIcon({
                 className: "custom-point-icon",
-                html: `<span style="background: ${polygons?.[polygonIndex]?.color}; width: 11px; height: 11px; border-radius: 50%; display: inline-block;"></span>`,
+                html: `<span style="background: ${item?.color}; width: 11px; height: 11px; border-radius: 50%; display: inline-block;"></span>`,
                 iconAnchor: [5, 8],
               });
               return (

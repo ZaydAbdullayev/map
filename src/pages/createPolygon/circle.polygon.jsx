@@ -10,7 +10,7 @@ const m_icon = new L.Icon({
   popupAnchor: [1, -34],
 });
 
-const MapClickHandler = ({ setCenter, setZoomLevel }) => {
+const MapClickHandler = ({ setCenter }) => {
   const map = useMapEvents({
     click(e) {
       const clickedElement = e.originalEvent.target;
@@ -20,7 +20,7 @@ const MapClickHandler = ({ setCenter, setZoomLevel }) => {
       ) {
         return;
       }
-      
+
       const newPosition = e?.latlng;
       setCenter(newPosition);
     },
@@ -33,25 +33,18 @@ const MapClickHandler = ({ setCenter, setZoomLevel }) => {
         map.dragging.enable();
       }
     },
-    zoomend: () => {
-      const currentZoom = map.getZoom();
-      setZoomLevel(currentZoom);
-      console.log("Zoom Level:", currentZoom);
-    },
   });
   return null;
 };
 
-export const CirclePolygon = ({
-  setCenter,
-  center,
-  radius = 0,
-  setRadius,
-  setZoomLevel,
-}) => {
+MapClickHandler.propTypes = {
+  setCenter: PropTypes.func,
+};
+
+export const CirclePolygon = ({ setCenter, center, radius = 0, setRadius }) => {
   return (
     <>
-      <MapClickHandler setCenter={setCenter} setZoomLevel={setZoomLevel} />
+      <MapClickHandler setCenter={setCenter} />
       <Circle center={center || [0, 0]} radius={radius} />
 
       <Marker
@@ -82,7 +75,6 @@ CirclePolygon.propTypes = {
   center: PropTypes.object,
   radius: PropTypes.number,
   setRadius: PropTypes.func,
-  setZoomLevel: PropTypes.func,
 };
 
 // const m_icon = new L.Icon({

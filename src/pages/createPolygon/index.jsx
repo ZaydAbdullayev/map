@@ -18,7 +18,6 @@ export const CreatePolygon = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [polygonName, setPolygonName] = useState("");
   const [userLocation, setUserLocation] = useState(null);
-  const [zoomLevel, setZoomLevel] = useState(14);
   const mapRef = useRef(null);
 
   const navigate = useNavigate();
@@ -136,7 +135,7 @@ export const CreatePolygon = () => {
     <>
       <MapContainer
         center={userLocation || [51.505, -0.09]}
-        zoom={type === "polygon" ? 14 : zoomLevel}
+        zoom={14}
         minZoom={3}
         style={{ height: "100vh", width: "100%" }}
         doubleClickZoom={false}
@@ -160,7 +159,6 @@ export const CreatePolygon = () => {
             setCenter={setCenter}
             radius={radius}
             setRadius={setRadius}
-            setZoomLevel={setZoomLevel}
           />
         )}
 
@@ -169,7 +167,6 @@ export const CreatePolygon = () => {
             <RangeInput
               value={radius}
               setValue={setRadius}
-              zoomLevel={zoomLevel}
               center={center}
             />
           )}

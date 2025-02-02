@@ -5,11 +5,6 @@ import { ConfigProvider, Segmented } from "antd";
 
 const FilterResult = ({ data, open, setOpen, setFilterType, clearFilter }) => {
   const [value, setValue] = useState("polygon");
-
-  const removeOtherClickEvents = (e) => {
-    e.stopPropagation();
-  };
-
   return (
     <div className={`filter-result-container ${open && "open"}`}>
       <span
@@ -82,7 +77,7 @@ const FilterResult = ({ data, open, setOpen, setFilterType, clearFilter }) => {
         )}
       </span>
       <section className="result-box">
-        <div className="w100 df aic gap3 px1 filter-type">
+        <div className="w100 df fdc filter-type">
           <span className="px1">Filter type:</span>
           <ConfigProvider
             theme={{
@@ -92,6 +87,7 @@ const FilterResult = ({ data, open, setOpen, setFilterType, clearFilter }) => {
                   itemColor: "#fff",
                   itemSelectedBg: "#f0f0f0",
                 },
+                
               },
             }}
           >
@@ -107,28 +103,8 @@ const FilterResult = ({ data, open, setOpen, setFilterType, clearFilter }) => {
             />
           </ConfigProvider>
         </div>
-        <h2>Finded polygons ({data?.length})</h2>
-        <div className="result-list">
-          {data?.length > 0 ? (
-            data?.map((point, index) => {
-              return point ? (
-                <div
-                  key={index}
-                  className="result-item"
-                  onClick={removeOtherClickEvents}
-                >
-                  <h4>{point?.name}</h4>
-                </div>
-              ) : (
-                ""
-              );
-            })
-          ) : (
-            <span style={{ margin: "auto" }}>
-              Select to minimum 4 coordinate{" "}
-            </span>
-          )}
-        </div>
+        <i></i>
+        <h3>Finded polygons ({data?.length})</h3>
       </section>
     </div>
   );

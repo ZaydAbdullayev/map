@@ -57,16 +57,16 @@
 
 .show-polygon-points {
   position: fixed;
-  width: 280px;
-  height: 40px;
-  bottom: 20px;
+  width: 160px;
+  height: 30px;
+  top: 117px;
   right: -300px;
   z-index: 99999999;
   transition: all 0.2s;
 }
 
 .show-polygon-points.open {
-  right: 20px;
+  right: 10px;
 }
 
 .show-polygon-points.disabled {
@@ -107,7 +107,9 @@
 
   .show-polygon-points {
     width: var(--point-width);
+    height: 40px;
     right: 10px !important;
+    top: unset;
     bottom: -80px;
   }
 
