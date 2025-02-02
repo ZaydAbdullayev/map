@@ -1,7 +1,7 @@
 .filter-result-container {
   position: fixed;
   top: 0;
-  right: -170px;
+  right: -190px;
   display: flex;
   padding: 10px;
   gap: 10px;
@@ -33,7 +33,7 @@
 }
 
 .result-box {
-  width: 160px;
+  width: 180px;
   height: 100%;
   flex-direction: column;
   align-items: flex-start;
